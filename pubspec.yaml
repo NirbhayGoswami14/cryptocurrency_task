@@ -69,6 +69,15 @@ flutter:
     - assets/icons/banner_bottom.png
     - assets/icons/border_line.png
     - assets/icons/eth_icon.png
+    - assets/icons/smile.png
+    - assets/icons/launch.png
+    - assets/icons/exchange.png
+    - assets/icons/wallet.png
+    - assets/icons/metaverse.png
+    - assets/icons/metaverse_2.png
+    - assets/icons/earth.png
+    - assets/icons/rocket.png
+    - assets/icons/wallet_1.png
 
 
 

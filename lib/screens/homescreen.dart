@@ -1,4 +1,5 @@
 import 'package:cryptocurrency_task/widget/currency_item.dart';
+import 'package:cryptocurrency_task/widget/custom_bottom_nav.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +9,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  var index=0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -240,6 +242,88 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
+    bottomNavigationBar: customBottomNav(),
+    );
+  }
+
+
+
+
+  Widget customBottomNav()
+  {
+    return Card(
+      shape: OutlineInputBorder(borderRadius: BorderRadius.circular(20),borderSide: BorderSide.none),
+      color: Colors.black.withOpacity(0.9),
+      elevation: 2,
+      child: Container(
+          height: 80,
+          child: Row(
+
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children:
+            [
+              InkWell(
+                onTap: (){
+                  setState(() {
+                    index=0;
+                  });
+
+                },
+                child: Column(mainAxisAlignment: MainAxisAlignment.center,children:  [
+                  ImageIcon(AssetImage('assets/icons/smile.png'),size: 25,color:index==0?Colors.white:Colors.grey,),
+                  SizedBox(height: 4,),
+                  Text('E-Shop',style: TextStyle(color: index==0?Colors.white:Colors.grey,fontWeight: FontWeight.bold,fontSize: 10),)
+                ],),
+              ),
+
+
+              InkWell(
+                onTap: (){
+                  setState(() {
+                    index=1;
+                  });
+                },
+                child: Column( mainAxisAlignment: MainAxisAlignment.center,children:  [
+                  ImageIcon(AssetImage('assets/icons/exchange.png'),size: 30,color:index==1?Colors.white:Colors.grey,),
+                  Text('Exchange',style: TextStyle(color: index==1?Colors.white:Colors.grey,fontWeight: FontWeight.bold,fontSize: 10),)
+                ],),
+              ),
+
+
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Expanded(child: ImageIcon(AssetImage('assets/icons/earth.png'),size: 40,color: Colors.yellow,)),
+                ],),
+
+
+              InkWell(
+                onTap: (){
+                  setState(() {
+                    index=2;
+                  });
+                },
+                child: Column(mainAxisAlignment: MainAxisAlignment.center,children: [
+                  ImageIcon(AssetImage('assets/icons/rocket.png'),size: 25,color:index==2?Colors.white:Colors.grey,),
+                  SizedBox(height: 4,),
+                  Text('Launchpads',style: TextStyle(color: index==2?Colors.white:Colors.grey,fontWeight: FontWeight.bold,fontSize: 10),)
+                ],),
+              ),
+
+              InkWell(
+                onTap: (){
+                  setState(() {
+                    index=3;
+                  });
+                },
+                child: Column(mainAxisAlignment: MainAxisAlignment.center,children:  [
+                  ImageIcon(AssetImage('assets/icons/wallet_1.png'),size: 25,color:index==3?Colors.white:Colors.grey,),
+                  SizedBox(height: 4,),
+                  Text('Wallet',style: TextStyle(color: index==3?Colors.white:Colors.grey,fontWeight: FontWeight.bold,fontSize: 10),)
+                ],),
+              ),
+            ],
+          )),
     );
   }
 }
