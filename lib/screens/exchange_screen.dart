@@ -1,59 +1,51 @@
-import 'package:cryptocurrency_task/screens/e_shopscreen.dart';
-import 'package:cryptocurrency_task/screens/exchange_screen.dart';
-import 'package:cryptocurrency_task/screens/launchpad_screen.dart';
-import 'package:cryptocurrency_task/screens/wallet_screen.dart';
-import 'package:cryptocurrency_task/widget/currency_item.dart';
-import 'package:cryptocurrency_task/widget/custom_bottom_nav.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatefulWidget {
+import '../widget/currency_item.dart';
+
+class ExchangeScreen extends StatefulWidget {
+  const ExchangeScreen({super.key});
+
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<ExchangeScreen> createState() => _ExchangeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  int index = 1;
-  final widgets = [
-    EShopScreen(),
-    ExchangeScreen(),
-    LaunchpadScreen(),
-    WalletScreen()
-  ];
+class _ExchangeScreenState extends State<ExchangeScreen> {
+  var index = 0;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: widgets[index] /*Padding(
+    return Padding(
         padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
         child: Column(
           children: [
             SafeArea(
                 child: Row(
-              children: [
-                const Text(
-                  "EXCHANGE",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                const Spacer(),
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.notifications_none_rounded,
-                      size: 28,
-                    )),
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.settings,
-                      size: 28,
-                    )),
+                  children: [
+                    const Text(
+                      "EXCHANGE",
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight
+                          .bold),
+                    ),
+                    const Spacer(),
+                    IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.notifications_none_rounded,
+                          size: 28,
+                        )),
+                    IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.settings,
+                          size: 28,
+                        )),
 
-                //const ImageIcon(AssetImage("assets/icons/noti.png"),size: 25,),
-                // SizedBox(width: 10,),
-                //const ImageIcon(AssetImage("assets/icons/setting.png"),size: 25,),
-              ],
-            )),
+                    //const ImageIcon(AssetImage("assets/icons/noti.png"),size: 25,),
+                    // SizedBox(width: 10,),
+                    //const ImageIcon(AssetImage("assets/icons/setting.png"),size: 25,),
+                  ],
+                )),
             const SizedBox(
               height: 15,
             ),
@@ -99,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         border: Border.all(
                             color: Colors.grey.withOpacity(0.8), width: 1),
                         borderRadius:
-                            const BorderRadius.all(Radius.circular(25))),
+                        const BorderRadius.all(Radius.circular(25))),
                     child: TextButton.icon(
                       onPressed: () {},
                       icon: const Icon(Icons.filter_list),
@@ -186,7 +178,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         const Spacer(),
                         Container(
-                          margin: const EdgeInsets.only(top: 25,right: 15),
+                          margin: const EdgeInsets.only(top: 25, right: 15),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: const [
@@ -199,9 +191,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text(
                                 '+2.5%',
                                 style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.green,),textAlign:TextAlign.right,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.green,),
+                                textAlign: TextAlign.right,
                               ),
                             ],
                           ),
@@ -210,19 +203,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     const Spacer(),
                     Stack(children: [
-                      Expanded(
-                        child: Image.asset(
-                          "assets/icons/border_line.png",
-                          width: 350,
-                          fit: BoxFit.cover,
-                        ),
+                      Image.asset(
+                        "assets/icons/border_line.png",
+                        width: 350,
+                        fit: BoxFit.cover,
                       ),
-                      Expanded(
-                        child: Image.asset(
-                          "assets/icons/banner_bottom.png",
-                          fit: BoxFit.cover,
-                          width: 350,
-                        ),
+                      Image.asset(
+                        "assets/icons/banner_bottom.png",
+                        fit: BoxFit.cover,
+                        width: 350,
                       ),
                     ],),
 
@@ -248,145 +237,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-            Expanded(child:  ListView.builder(physics: BouncingScrollPhysics(),itemBuilder: (context, index) => const CurrencyItem(),itemCount: 10) ),
+            Expanded(
+              child: ListView.builder(physics: BouncingScrollPhysics(),
+                  itemBuilder: (context, index) => const CurrencyItem(),
+                  itemCount: 10),
+            ),
 
           ],
         ),
-      ),*/
-      ,
-      bottomNavigationBar: customBottomNav(),
-    );
-  }
-
-  Widget customBottomNav() {
-    return Card(
-      shape: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20), borderSide: BorderSide.none),
-      color: Colors.black.withOpacity(0.9),
-      elevation: 2,
-      child: Container(
-          height: 80,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              InkWell(
-                onTap: () {
-                  setState(() {
-                    index = 0;
-                  });
-                },
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ImageIcon(
-                      AssetImage('assets/icons/smile.png'),
-                      size: 25,
-                      color: index == 0 ? Colors.white : Colors.grey,
-                    ),
-                    SizedBox(
-                      height: 4,
-                    ),
-                    Text(
-                      'E-Shop',
-                      style: TextStyle(
-                          color: index == 0 ? Colors.white : Colors.grey,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 10),
-                    )
-                  ],
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  setState(() {
-                    index = 1;
-                  });
-                },
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ImageIcon(
-                      AssetImage('assets/icons/exchange.png'),
-                      size: 30,
-                      color: index == 1 ? Colors.white : Colors.grey,
-                    ),
-                    Text(
-                      'Exchange',
-                      style: TextStyle(
-                          color: index == 1 ? Colors.white : Colors.grey,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 10),
-                    )
-                  ],
-                ),
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Expanded(
-                      child: ImageIcon(
-                    AssetImage('assets/icons/earth.png'),
-                    size: 40,
-                    color: Colors.yellow,
-                  )),
-                ],
-              ),
-              InkWell(
-                onTap: () {
-                  setState(() {
-                    index = 2;
-                  });
-                },
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ImageIcon(
-                      AssetImage('assets/icons/rocket.png'),
-                      size: 25,
-                      color: index == 2 ? Colors.white : Colors.grey,
-                    ),
-                    SizedBox(
-                      height: 4,
-                    ),
-                    Text(
-                      'Launchpads',
-                      style: TextStyle(
-                          color: index == 2 ? Colors.white : Colors.grey,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 10),
-                    )
-                  ],
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  setState(() {
-                    index = 3;
-                  });
-                },
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ImageIcon(
-                      AssetImage('assets/icons/wallet_1.png'),
-                      size: 25,
-                      color: index == 3 ? Colors.white : Colors.grey,
-                    ),
-                    SizedBox(
-                      height: 4,
-                    ),
-                    Text(
-                      'Wallet',
-                      style: TextStyle(
-                          color: index == 3 ? Colors.white : Colors.grey,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 10),
-                    )
-                  ],
-                ),
-              ),
-            ],
-          )),
-    );
+      );
   }
 }

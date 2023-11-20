@@ -19,16 +19,11 @@ class _CurrencyItemState extends State<CurrencyItem>
           margin: const EdgeInsets.only(top:10,),
           child: Row(
             children: [
-              Stack(children: [
-
-              ],),
               Image.asset('assets/icons/eth_icon.png',width: 60,height: 60,),
               const SizedBox(
                 width: 10,
               ),
-              Stack(children: [
 
-              ],),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children:[
