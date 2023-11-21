@@ -1,16 +1,40 @@
+import 'dart:core';
+import 'dart:ffi';
+
+import 'package:cryptocurrency_task/model/Data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CurrencyItem extends StatefulWidget
 {
-  const CurrencyItem({super.key});
-
+  CurrencyItem(this.cryptoData, {super.key});
+  Data cryptoData;
   @override
   State<CurrencyItem> createState()=>_CurrencyItemState();
 
 }
 class _CurrencyItemState extends State<CurrencyItem>
 {
+  String percentage="",image="";
+  MaterialColor? color;
+
+  @override
+  void initState() {
+    if(double.parse(widget.cryptoData.quote!.usd!.percentChange1h.toString())<0)
+      {
+        percentage="${double.parse(widget.cryptoData.quote!.usd!.percentChange1h.toString()).toStringAsFixed(2)}%";
+        image="assets/icons/red.png";
+        color=Colors.red;
+      }
+    else
+      {
+        percentage="+${double.parse(widget.cryptoData.quote!.usd!.percentChange1h.toString()).toStringAsFixed(2)}%";
+        image="assets/icons/green.png";
+        color=Colors.green;
+      }
+        super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -19,7 +43,8 @@ class _CurrencyItemState extends State<CurrencyItem>
           margin: const EdgeInsets.only(top:10,),
           child: Row(
             children: [
-              Image.asset('assets/icons/eth_icon.png',width: 60,height: 60,),
+              Image.network("https://s2.coinmarketcap.com/static/img/coins/64x64/${widget.cryptoData.id}.png",width:50,height: 50,),
+              //Image.asset('assets/icons/eth_icon.png',width: 60,height: 60,),
               const SizedBox(
                 width: 10,
               ),
@@ -27,21 +52,22 @@ class _CurrencyItemState extends State<CurrencyItem>
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children:[
-                  Row(children: [
-                    const Text(
-                      'ETH',
-                      style: TextStyle(
+                  Row(
+                    children: [
+                    Text(
+                      widget.cryptoData.symbol!,
+                      style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: Colors.black),
                     ),
                     const SizedBox(width: 20,),
-                    Image.asset('assets/icons/red.png')
+                    Image.asset(image)
                   ],),
 
-                  const Text(
-                    'Ethereum',
-                    style: TextStyle(
+                   Text(
+                    widget.cryptoData.name!,
+                    style: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
                         color: Colors.grey),
@@ -59,19 +85,19 @@ class _CurrencyItemState extends State<CurrencyItem>
           margin: const EdgeInsets.only(top: 25,right: 15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
-            children: const [
-              Text("\$55,000 USD",
-                style: TextStyle(
+            children:  [
+              Text("\$${double.parse(widget.cryptoData.quote!.usd!.price!.toString()).toStringAsFixed(2)} USD",
+                style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: Colors.black),
               ),
               Text(
-                '-2.5%',
+                percentage,
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
-                  color: Colors.red,),textAlign:TextAlign.right,
+                  color: color,),textAlign:TextAlign.right,
               ),
             ],
           ),

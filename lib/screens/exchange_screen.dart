@@ -1,5 +1,10 @@
+import 'package:cryptocurrency_task/api_service/api_service.dart';
+import 'package:cryptocurrency_task/model/Cryptomodel.dart';
+import 'package:cryptocurrency_task/model/Data.dart';
+import 'package:cryptocurrency_task/widget/currency_item_place_holder.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../widget/currency_item.dart';
 
@@ -11,10 +16,20 @@ class ExchangeScreen extends StatefulWidget {
 }
 
 class _ExchangeScreenState extends State<ExchangeScreen> {
+  dynamic _response;
   var index = 0;
+  bool isLoading=true;
+  Cryptomodel? cryptomodel;
+  List<Data> cryptoData=[];
+  @override
+  void initState() {
+    callApi();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+
     return Padding(
         padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
         child: Column(
@@ -134,7 +149,7 @@ class _ExchangeScreenState extends State<ExchangeScreen> {
                   borderRadius: BorderRadius.circular(24),
                   borderSide: BorderSide.none),
               elevation: 0,
-              color: Colors.lightGreen.shade50,
+              color: Colors.lightGreen.shade100,
               child: Container(
                 height: 150,
                 width: 350,
@@ -237,14 +252,44 @@ class _ExchangeScreenState extends State<ExchangeScreen> {
                 ),
               ],
             ),
+            const SizedBox(height:5,),
             Expanded(
-              child: ListView.builder(physics: BouncingScrollPhysics(),
-                  itemBuilder: (context, index) => const CurrencyItem(),
-                  itemCount: 10),
-            ),
+            child:isLoading?Shimmer.fromColors(baseColor: Colors.grey.shade400, highlightColor:Colors.grey.shade100, child:ListView(children:[
+              CurrencyItemPlaceHolder(),
+              CurrencyItemPlaceHolder(),
+              CurrencyItemPlaceHolder(),
+              CurrencyItemPlaceHolder(),
+              CurrencyItemPlaceHolder(),
 
-          ],
+            ])) :ListView.builder(
+                padding: EdgeInsets.zero,
+                physics: BouncingScrollPhysics(),
+                itemBuilder: (context, index) =>  CurrencyItem(cryptoData[index]),
+                itemCount: cryptoData.length),
+          ),
+        ],
         ),
       );
+
   }
+  Future callApi() async
+  {
+    var response=await ApiService().getCryptocurrency();
+    setState(() {
+      _response=response;
+      isLoading=false;
+      if(_response!=null)
+        {
+
+          print('--');
+            cryptomodel=Cryptomodel.fromJson(_response);
+            if(cryptomodel!.status!.errorCode==0)
+              {
+                  cryptoData=cryptomodel!.data!;
+              }
+        }
+    });
+
+  }
+
 }

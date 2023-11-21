@@ -279,11 +279,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ImageIcon(
-                      AssetImage('assets/icons/smile.png'),
+                     const AssetImage('assets/icons/smile.png'),
                       size: 25,
                       color: index == 0 ? Colors.white : Colors.grey,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 4,
                     ),
                     Text(
@@ -306,7 +306,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ImageIcon(
-                      AssetImage('assets/icons/exchange.png'),
+                      const AssetImage('assets/icons/exchange.png'),
                       size: 30,
                       color: index == 1 ? Colors.white : Colors.grey,
                     ),
@@ -341,11 +341,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ImageIcon(
-                      AssetImage('assets/icons/rocket.png'),
+                      const AssetImage('assets/icons/rocket.png'),
                       size: 25,
                       color: index == 2 ? Colors.white : Colors.grey,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 4,
                     ),
                     Text(
@@ -368,11 +368,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ImageIcon(
-                      AssetImage('assets/icons/wallet_1.png'),
+                      const AssetImage('assets/icons/wallet_1.png'),
                       size: 25,
                       color: index == 3 ? Colors.white : Colors.grey,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 4,
                     ),
                     Text(
