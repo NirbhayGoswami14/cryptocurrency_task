@@ -21,6 +21,7 @@ class _ExchangeScreenState extends State<ExchangeScreen> {
   bool isLoading=true;
   Cryptomodel? cryptomodel;
   List<Data> cryptoData=[];
+  List<Data> tempCryptoData=[];
   @override
   void initState() {
     callApi();
@@ -94,6 +95,9 @@ class _ExchangeScreenState extends State<ExchangeScreen> {
                               color: Colors.grey.shade100,
                             )),
                       ),
+                      onChanged: (value) {
+                        filterSearchList(value.toLowerCase());
+                      },
                     ),
                   ),
                   const SizedBox(
@@ -108,7 +112,9 @@ class _ExchangeScreenState extends State<ExchangeScreen> {
                         borderRadius:
                         const BorderRadius.all(Radius.circular(25))),
                     child: TextButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        showFilterMenu();
+                      },
                       icon: const Icon(Icons.filter_list),
                       label: const Text(
                         'Filter',
@@ -285,11 +291,57 @@ class _ExchangeScreenState extends State<ExchangeScreen> {
             cryptomodel=Cryptomodel.fromJson(_response);
             if(cryptomodel!.status!.errorCode==0)
               {
-                  cryptoData=cryptomodel!.data!;
+                  tempCryptoData=cryptomodel!.data!;
+                  cryptoData=tempCryptoData;
               }
         }
     });
 
+  }
+
+  void filterSearchList(String query)
+  {
+    setState(() {
+      print("okkkkkkk");
+      cryptoData=tempCryptoData.where((element) =>element.name!.toLowerCase().contains(query)).toList();
+    });
+
+  }
+
+  void showFilterMenu() async {
+    var menuName = ['Low Price','High Price','Low Volume','High Volume'];
+    RenderBox box = context.findRenderObject() as RenderBox;
+    Offset offset = box.localToGlobal(Offset.zero);
+    showMenu<String>(context: context,
+        position:RelativeRect.fromLTRB(
+            offset.dx+50, offset.dx+110, offset.dx, offset.dx),
+        items: menuName.map((e) => PopupMenuItem<String>(value: e,child: Text(e))).toList()).then((String? value) {
+      switch(value)
+          {
+        case 'Low Price':
+          setState(() {
+            cryptoData.sort((a, b) => a.quote!.usd!.price.compareTo(b.quote!.usd!.price),);
+          });
+          break;
+        case 'High Price':
+          setState(() {
+            cryptoData.sort((a, b) => b.quote!.usd!.price.compareTo(a.quote!.usd!.price),);
+          });
+          break;
+        case 'Low Volume':
+          setState(() {
+            cryptoData.sort((a, b) => a.quote!.usd!.volume24h.compareTo(b.quote!.usd!.volume24h),);
+          });
+          break;
+        case 'High Volume':
+          setState(() {
+            cryptoData.sort((a, b) => b.quote!.usd!.volume24h.compareTo(a.quote!.usd!.volume24h),);
+          });
+          break;
+      }
+
+
+    }  );
   }
 
 }
